@@ -1,0 +1,15 @@
+@import './assets/style/index.css';
+@import './assets/style/define.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.custom-success-message {
+    border: none;
+    border-radius: 4px;
+    width: 500px;
+  }
+  
+  .ant-modal-content{
+    width:700px;
+  }
