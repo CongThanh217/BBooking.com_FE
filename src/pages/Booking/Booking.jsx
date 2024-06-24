@@ -39,8 +39,8 @@ const BookingFinal = () => {
             setLoading(true);
             const dataPaypal = {
                 bookingId: id,
-                urlSuccess: 'https://booking-com-amber.vercel.app/booking-success',
-                urlCancel: 'https://booking-com-amber.vercel.app/booking-pending',
+                urlSuccess: 'https://b-booking-com-fe.vercel.app/booking-success',
+                urlCancel: 'https://b-booking-com-fe.vercel.app/booking-pending',
             };
     
             const resultPaypal =  await paypalApi(dataPaypal);

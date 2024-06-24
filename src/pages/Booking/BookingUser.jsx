@@ -74,8 +74,8 @@ const BookingUser = () => {
                     if (result?.result === true && result?.data) {
                         var dataPaypal = {
                             bookingId: result?.data,
-                            urlSuccess: 'https://booking-com-amber.vercel.app/booking-success',
-                            urlCancel: 'https://booking-com-amber.vercel.app/booking-pending',
+                            urlSuccess: 'https://b-booking-com-fe.vercel.app/booking-success',
+                            urlCancel: 'https://b-booking-com-fe.vercel.app/booking-pending',
                         };
                         var resultPaypal = await paypalApi(dataPaypal);
                         if (resultPaypal?.result === true) {
