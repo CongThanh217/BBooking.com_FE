@@ -150,14 +150,16 @@ const BookingFinal = () => {
                                     </div>
                                     <div className='flex gap-4'>
                                     <div style={{ width: '100%' }}>
-  <p style={{ width: '100%', textAlign: 'right', fontWeight: 'bold', fontSize: '24px' }}>
+                                    <p style={{ width: '100%', textAlign: 'right', fontWeight: 'bold', fontSize: '24px' }}>
     VND {item?.price?.toString().replace(/(?=(?!\b)(\d{3})+$)/g, ',')}
+    {
+        item?.status === 2 && item?.status === 5 && item?.status === 3 ? 
+            ((item?.paymentMethod === 1 && item?.paymentStatus === false ) ? (
+                <p style={{ width: '100%', textAlign: 'right', color: '#ff0000', fontWeight: "500", fontSize: '14px' }}>
+                  Chưa thanh toán PayPal
+                </p> ) : null): null
+    }
   </p>
-  {(item?.paymentMethod === 1 && item?.paymentStatus === false) ? (
-    <p style={{ width: '100%', textAlign: 'right', color: '#ff0000', fontWeight: "500", fontSize: '14px' }}>
-      Chưa thanh toán PayPal
-    </p>
-  ) : null}
 </div>
 
                                      
@@ -313,12 +315,12 @@ const BookingFinal = () => {
                             <p style={{ margin: 0 , fontSize: '14px', fontWeight: 700}}>Trạng thái thanh toán</p>
                             <p style={{ margin: 0, fontSize: '14px', fontWeight: 400 }}>
                 {selectedBooking?.paymentStatus === false ? "Chưa thanh toán" : "Đã thanh toán"}
-                {(selectedBooking?.paymentMethod === 1 && selectedBooking?.paymentStatus === false) ? (
-                    <span onClick={() => { createPayPal(selectedBooking?.id) }} style={{ color: "#0066cc", cursor: "pointer" }}>
-                        {loading ? <Spin size="small" /> : " - Nhấn vào đây để thanh toán"}
-                    </span>
-                ) : null}
-            </p>
+                
+                {
+                     selectedBooking?.status === 2 && selectedBooking?.status === 5 && selectedBooking?.status === 3 ?
+                        (loading ? <Spin size="small" /> : " - Nhấn vào đây để thanh toán") :null}
+
+  </p>
                         </div>
                     </div>
                 </div>
