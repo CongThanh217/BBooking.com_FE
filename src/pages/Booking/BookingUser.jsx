@@ -203,7 +203,7 @@ const BookingUser = () => {
                                     <div className="separator" style={{ width: "2px", height: "70px", background: "#e7e7e7" }}></div>
                                     <div className='w-1/2'>
                                         <p style={{ fontSize: "14px" }}>Trả phòng</p>
-                                        <p className='text-base font-bold'>{moment(dataRoomChoise?.roomDtoList?.[0]?.endDate, 'DD/MM/YYYY HH:mm:ss').format('DD [tháng] MM YYYY')}</p>
+                                        <p className='text-base font-bold'>{moment(moment(dataRoomChoise?.roomDtoList?.slice(-1)[0]?.endDate, 'DD/MM/YYYY HH:mm:ss')).format('DD [tháng] MM YYYY')}</p>
                                         <p style={{ fontSize: "14px", color: "#595959", marginTop: "4px" }}>Cho đến 12:00</p>
                                     </div>
                                 </div>
@@ -227,20 +227,23 @@ const BookingUser = () => {
                                         <p className='text-2xl font-bold'>cộng</p>
                                     </div>
                                     <div style={{ marginTop: '9px' }}>
-                                        <p
-                                            style={{
-                                                fontSize: '24px',
-                                                marginLeft: '59px',
-                                                width: 'calc(100% - 59px)',
-                                                textAlign: 'right',
-                                                fontWeight: 'bold',
-                                            }}
-                                            className="text-2xl font-bold"
-                                        >
-                                            VND {(Number(dataRoomChoise?.room) * dataRoomChoise?.roomDtoList?.[0]?.price)
-                                                ?.toString()
-                                                .replace(/(?=(?!\b)(\d{3})+$)/g, '.')}
-                                        </p>
+                                    <p
+    style={{
+        fontSize: '24px',
+        marginLeft: '59px',
+        width: 'calc(100% - 59px)',
+        textAlign: 'right',
+        fontWeight: 'bold',
+    }}
+    className="text-2xl font-bold"
+>
+    VND {(
+        Number(dataRoomChoise?.room) *
+        dataRoomChoise?.roomDtoList?.reduce((total, room) => total + room.price, 0)
+    )
+        .toString()
+        .replace(/(?=(?!\b)(\d{3})+$)/g, '.')}
+</p>
                                         <p
                                             style={{
                                                 color: '#595959',

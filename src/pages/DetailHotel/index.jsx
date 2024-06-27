@@ -166,13 +166,19 @@ const DetailHotel = () => {
             key: 'price',
             render: (_, text) => (
                 <div>
-                    <div className='flex gap-2' style={{ fontSize: 20, fontWeight: 700 }}>
-                        <p>VND</p>
-                        <p>{text?.roomDtoList?.[0]?.price?.toString().replace(/(?=(?!\b)(\d{3})+$)/g, '.')}</p>
-                    </div>
-                    <p style={{ fontSize: 14 }}>Đã bao gồm thuế và phí</p>
+                  <div className='flex gap-2' style={{ fontSize: 20, fontWeight: 700 }}>
+                    <p>VND</p>
+                    <p>
+                      {text?.roomDtoList
+                        ?.reduce((total, room) => total + room.price, 0)
+                        .toString()
+                        .replace(/(?=(?!\b)(\d{3})+$)/g, '.')}
+                    </p>
+                  </div>
+                  <p style={{ fontSize: 14 }}>Đã bao gồm thuế và phí</p>
                 </div>
-            )
+              )
+              
         },
         {
             title: 'Chọn phòng',
@@ -197,13 +203,27 @@ const DetailHotel = () => {
             key: 'name', 
             render: (_, data) => (
                 <div>
-                    {
-                        selectedRooms[data.id] > 0 ?  <div style={{marginBottom: "6px"}}>
-                        <p>{selectedRooms[data.id] > 0 ? <><strong style={{fontWeight : 700}}>{selectedRooms[data.id]}</strong> phòng tổng giá</>  : null}</p>
-                        <p style={{fontSize : "20px"}}>{selectedRooms[data.id] > 0 ? `VND ${((data.roomDtoList?.[0]?.price || 0) * (selectedRooms[data.id] || 0)).toLocaleString('vi-VN')}` : null}</p>
-                        <p style={{fontSize : "12px", color:  "#6b6b6b"}}>Đã bao gồm thuế phí</p>
-                        </div> : null
-                    }
+    {
+      selectedRooms[data.id] > 0 ? (
+        <div style={{ marginBottom: "6px" }}>
+          <p>
+            {selectedRooms[data.id] > 0 ? (
+              <>
+                <strong style={{ fontWeight: 700 }}>{selectedRooms[data.id]}</strong> phòng tổng giá
+              </>
+            ) : null}
+          </p>
+          <p style={{ fontSize: "20px" }}>
+            {selectedRooms[data.id] > 0 ? `VND ${(
+              data.roomDtoList
+                ?.reduce((total, room) => total + room.price, 0) * selectedRooms[data.id]
+              ).toLocaleString('vi-VN')}` : null}
+          </p>
+          <p style={{ fontSize: "12px", color: "#6b6b6b" }}>Đã bao gồm thuế phí</p>
+        </div>
+      ) : null
+    }
+         
                    
                    
 
